@@ -12,3 +12,5 @@ class Scanner:
     def run(self):
         self.wordlist.load()
         # Implement the scanning logic here
+        for word in self.wordlist:
+            print(f"Scanning with word: {word}")
