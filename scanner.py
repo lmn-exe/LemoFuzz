@@ -1,7 +1,9 @@
+import http_engine, workers
 import options
 import wordlist
 import job
 import queuemanager
+import threading
 
 class Scanner:
     options: options.Options
@@ -13,12 +15,26 @@ class Scanner:
         
     def run(self):
         self.wordlist.load()
-        jobs = job.Job(self.options, self.wordlist)
         queue = queuemanager.QueueManager()
         for word in self.wordlist:
-            job_ =jobs.concatenate_url(word)
-            queue._queue.put(job_) 
+            job_obj = job.Job()
+            job_obj.url = self.options.url + "/" + word
+            job_obj.word = word
+            queue.fill(job_obj) 
+            
             print(f"the words are: {word}")
-        print(f"the queue size is: {queue.qsize()}")
         
+        threads = []
+        
+        for _ in range(self.options.num_threads):
+            engine = http_engine.HttpEngine(self.options)
+            worker = workers.workers(queue, engine)
+            thread = threading.Thread(target=worker.run)
+            thread.start()
+            threads.append(thread)
+        queue.join()
+
+        for thread in threads:
+            thread.join()
+        print(f"the queue size is: {queue.qsize()}")
         

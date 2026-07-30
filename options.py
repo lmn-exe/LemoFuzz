@@ -16,7 +16,7 @@ class Options:
         self,
         url: str,
         wordlist_path: str,
-        extension: list[str] | str = "",
+        extension: str = "",
         status: str = "",
         headers: dict | None = None,
         user_agent: str = "PythonFuzzer/1.0",
@@ -24,11 +24,13 @@ class Options:
         proxy: str | None = None,
         timeout: int = 10,
         allow_redirects: bool = False,
+        num_threads: int = 4
     ):
         self.url = url
         self.wordlist_path = wordlist_path
         self.extension = extension
         self.status = status
+        self.num_threads = num_threads
 
         # HTTP options
         self.headers = headers or {}
