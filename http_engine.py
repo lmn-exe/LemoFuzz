@@ -1,4 +1,4 @@
-import requests  # type: ignore
+import requests
 import options
 # class http_engine:
 #     url : str
