@@ -7,9 +7,8 @@ class QueueManager:
     def __init__(self, maxsize: int =0):
         self._queue: queue.Queue = queue.Queue(maxsize=maxsize)
 
-    def fill(self, jobs: Iterable[job.Job]) -> None:
-        for job in jobs:
-            self._queue.put(job)
+    def fill(self, jobs: job.Job) -> None:
+        self._queue.put(jobs)
 
     def get(self) -> job.Job | None:
         return self._queue.get()
@@ -23,7 +22,9 @@ class QueueManager:
     def qsize(self) -> int:
         return self._queue.qsize()
 
-
+    def empty(self) -> bool:
+        return self._queue.empty()
+    
     # def put_sentinel(self, count: int) -> None:
     #     #"""Push `count` None values - one stop signal per worker thread."""
     #     for _ in range(count):
