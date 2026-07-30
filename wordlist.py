@@ -32,7 +32,8 @@ class Wordlist:
     def with_extensions(self, word: str):
         yield word
         #for ext in self.extension:
-        yield f"{word}{self.extension}"
+        if self.extension != None:
+            yield f"{word}{self.extension}"
             
     def __iter__(self):
         for word in self.words:

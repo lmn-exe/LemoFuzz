@@ -12,15 +12,13 @@ class Scanner:
         self.wordlist = wordlist.Wordlist(options.wordlist_path, options.extension)
         
     def run(self):
-        i=0
         self.wordlist.load()
         jobs = job.Job(self.options, self.wordlist)
         queue = queuemanager.QueueManager()
         for word in self.wordlist:
             job_ =jobs.concatenate_url(word)
             queue._queue.put(job_) 
-            i+=1
-            print(f"Processed {i} words")
-        print("wyaaaaaa")                
-            
+            print(f"the words are: {word}")
+        print(f"the queue size is: {queue.qsize()}")
+        
         

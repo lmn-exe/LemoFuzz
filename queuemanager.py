@@ -4,7 +4,7 @@ import job
 
 
 class QueueManager:
-    def __init__(self, maxsize: int =100):
+    def __init__(self, maxsize: int =0):
         self._queue: queue.Queue = queue.Queue(maxsize=maxsize)
 
     def fill(self, jobs: Iterable[job.Job]) -> None:
