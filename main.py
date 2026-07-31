@@ -31,10 +31,11 @@ def main():
         print(f"Status Code: {response.status_code}")
         print(f"URL: {response.url}")
         print(response.text[:200])  # Print first 200 characters
-
-    scanner_instance = scanner.Scanner(options)
-    scanner_instance.run()
+        scanner_instance = scanner.Scanner(options)
+        scanner_instance.run()
     
+
+
     
 if __name__ == "__main__":
     main()

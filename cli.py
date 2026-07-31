@@ -11,6 +11,7 @@ class Cli:
         self.parser.add_argument("-w", "--wordlist", type=str, required=True, help="Path to the wordlist file")
         self.parser.add_argument("-e", "--extension", type=str, help="Extension information")
         self.parser.add_argument("-s", "--status", type=str, help="Status information")
+        self.parser.add_argument("-t", "--threads", type=int, help="Number of threads to use for scanning")
 
     def parse_args(self):
         args = self.parser.parse_args()
@@ -19,7 +20,8 @@ class Cli:
             url=args.url,
             wordlist_path=args.wordlist,
             extension=args.extension,
-            status=args.status
+            status=args.status,
+            num_threads=args.threads
         )
         return opt
 

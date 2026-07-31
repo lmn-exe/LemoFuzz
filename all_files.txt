@@ -1,8 +1,11 @@
 spiders
 lemon
-ftp
-api
-rest
-assets
-administration
+leftovers
 basket
+config.file
+bring
+stic
+haja
+hajawahdokhra
+rania
+ibtihal

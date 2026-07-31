@@ -4,7 +4,8 @@ import wordlist
 import job
 import queuemanager
 import threading
-
+import wildcard
+import http_engine
 class Scanner:
     options: options.Options
     wordlist: wordlist.Wordlist
@@ -16,6 +17,10 @@ class Scanner:
     def run(self):
         self.wordlist.load()
         queue = queuemanager.QueueManager()
+        wildcard_instance = wildcard.Wildcard()
+        http_engine_instance = http_engine.HttpEngine(self.options)
+        wildcard_instance.initialise(http_engine_instance, self.options)
+        
         for word in self.wordlist:
             job_obj = job.Job()
             job_obj.url = self.options.url + "/" + word
@@ -26,9 +31,10 @@ class Scanner:
         
         threads = []
         
-        for _ in range(self.options.num_threads):
+        for i in range(self.options.num_threads):
+            #print(f"created thread {i}")
             engine = http_engine.HttpEngine(self.options)
-            worker = workers.workers(queue, engine)
+            worker = workers.workers(queue, engine,wildcard_instance)
             thread = threading.Thread(target=worker.run)
             thread.start()
             threads.append(thread)
@@ -37,4 +43,5 @@ class Scanner:
         for thread in threads:
             thread.join()
         print(f"the queue size is: {queue.qsize()}")
+        
         
