@@ -11,7 +11,8 @@ class Cli:
         self.parser.add_argument("-w", "--wordlist", type=str, required=True, help="Path to the wordlist file")
         self.parser.add_argument("-e", "--extension", type=str, help="Extension information")
         self.parser.add_argument("-s", "--status", type=str, help="Status information")
-        self.parser.add_argument("-t", "--threads", type=int, help="Number of threads to use for scanning")
+        self.parser.add_argument("-t", "--threads", type=int, default=4, help="Number of threads to use for scanning")
+        self.parser.add_argument("-a", "--user-agent", type=str, default="LemoFuzz/1.0", help="User-Agent header to use for requests")
 
     def parse_args(self):
         args = self.parser.parse_args()
@@ -21,7 +22,8 @@ class Cli:
             wordlist_path=args.wordlist,
             extension=args.extension,
             status=args.status,
-            num_threads=args.threads
+            num_threads=args.threads,
+            user_agent=args.user_agent
         )
         return opt
 

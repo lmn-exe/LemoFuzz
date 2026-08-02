@@ -35,9 +35,9 @@ class HttpEngine:
 
     def build_session(self):
         session = requests.Session()
-
         session.headers.update(self.options.headers)
-        session.headers.setdefault("User-Agent", self.options.user_agent)
+        #session.headers.setdefault("User-Agent", self.options.user_agent)
+        session.headers["User-Agent"] = self.options.user_agent
 
         if self.options.cookies:
             session.cookies.update(self.options.cookies)
@@ -53,6 +53,9 @@ class HttpEngine:
 
     def send(self, url: str):
         try:
+            print(self.options.user_agent)
+            print(f"Sending request to: {url}")
+            print(f"User-Agent: {self.session.headers.get('User-Agent')}")
             response = self.session.request(
                 method="GET",
                 url=url,

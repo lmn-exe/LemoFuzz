@@ -19,7 +19,7 @@ class Options:
         extension: str = "",
         status: str = "",
         headers: dict | None = None,
-        user_agent: str = "PythonFuzzer/1.0",
+        user_agent: str = "LemoFuzz/1.0",
         cookies: dict | None = None,
         proxy: str | None = None,
         timeout: int = 10,
