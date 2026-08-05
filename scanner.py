@@ -6,6 +6,8 @@ import queuemanager
 import threading
 import wildcard
 import http_engine
+import filter_engine
+
 class Scanner:
     options: options.Options
     wordlist: wordlist.Wordlist
@@ -20,6 +22,7 @@ class Scanner:
         wildcard_instance = wildcard.Wildcard()
         http_engine_instance = http_engine.HttpEngine(self.options)
         wildcard_instance.initialise(http_engine_instance, self.options)
+        filter_engine_instance = filter_engine.Filter_engine()
         
         for word in self.wordlist:
             job_obj = job.Job()
@@ -34,7 +37,7 @@ class Scanner:
         for i in range(self.options.num_threads):
             #print(f"created thread {i}")
             engine = http_engine.HttpEngine(self.options)
-            worker = workers.workers(queue, engine,wildcard_instance)
+            worker = workers.workers(queue, engine,wildcard_instance, filter_engine_instance)
             thread = threading.Thread(target=worker.run)
             thread.start()
             threads.append(thread)
