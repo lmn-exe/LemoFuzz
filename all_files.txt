@@ -7,5 +7,7 @@ bring
 stic
 haja
 hajawahdokhra
-rania
-ibtihal
+rania.txt
+ibtihel.txt
+walid/
+config/
