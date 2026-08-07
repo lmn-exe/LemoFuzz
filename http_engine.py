@@ -55,7 +55,7 @@ class HttpEngine:
         try:
             print(self.options.user_agent)
             print(f"Sending request to: {url}")
-            print(f"User-Agent: {self.session.headers.get('User-Agent')}")
+            # print(f"User-Agent: {self.session.headers.get('User-Agent')}")
             response = self.session.request(
                 method="GET",
                 url=url,
