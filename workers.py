@@ -3,6 +3,9 @@ import http_engine
 import job
 import wildcard
 import filter_engine
+import options
+
+
 
 class workers:
     def __init__(
@@ -48,6 +51,8 @@ class workers:
                 print("wildcard detected for url: ", job_.url)
             else:
                 if self.filter_engine.should_keep(result):
-                    print(f"Status Code: {result.status_code}")
-                    print(f"URL: {result.url}")
-                
+                    print("the result is kept for url: ", job_.url)
+                else:
+                    print("the result is filtered for url: ", job_.url)
+                # print(f"Status Code: {result.status_code}")
+                # print(f"URL: {result.url}")

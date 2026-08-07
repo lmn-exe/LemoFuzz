@@ -22,7 +22,7 @@ class Scanner:
         wildcard_instance = wildcard.Wildcard()
         http_engine_instance = http_engine.HttpEngine(self.options)
         wildcard_instance.initialise(http_engine_instance, self.options)
-        filter_engine_instance = filter_engine.Filter_engine()
+        filter_engine_instance = filter_engine.Filter_engine(self.options)
         
         for word in self.wordlist:
             job_obj = job.Job()
