@@ -12,10 +12,10 @@
 #     print(options.url)
     
 # main()
-
 import cli
 import http_engine
 import scanner
+
 def main():
     cli_instance = cli.Cli()
     cli_instance.build_parser()
@@ -36,6 +36,5 @@ def main():
     
 
 
-    
 if __name__ == "__main__":
     main()

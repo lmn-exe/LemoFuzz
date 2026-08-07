@@ -7,6 +7,7 @@ import threading
 import wildcard
 import http_engine
 import filter_engine
+import logger
 
 class Scanner:
     options: options.Options
@@ -23,7 +24,8 @@ class Scanner:
         http_engine_instance = http_engine.HttpEngine(self.options)
         wildcard_instance.initialise(http_engine_instance, self.options)
         filter_engine_instance = filter_engine.Filter_engine(self.options)
-
+        logger_instance = logger.Logger()
+        
         # print(f"the status code set/ none set by the user is: {self.options.status}")
         
         for word in self.wordlist:
@@ -39,7 +41,7 @@ class Scanner:
         for i in range(self.options.num_threads):
             #print(f"created thread {i}")
             engine = http_engine.HttpEngine(self.options)
-            worker = workers.workers(queue, engine,wildcard_instance, filter_engine_instance)
+            worker = workers.workers(queue, engine,wildcard_instance, filter_engine_instance, logger_instance)
             thread = threading.Thread(target=worker.run)
             thread.start()
             threads.append(thread)

@@ -4,7 +4,7 @@ import job
 import wildcard
 import filter_engine
 import options
-
+import logger
 
 
 class workers:
@@ -13,13 +13,14 @@ class workers:
             queuemanager: queuemanager.QueueManager,
             http_engine: http_engine.HttpEngine,
             wildcard: wildcard.Wildcard,
-            filter_engine: filter_engine.Filter_engine
-
+            filter_engine: filter_engine.Filter_engine,
+            logger: logger.Logger,
         ):
             self.queuemanager = queuemanager
             self.http_engine = http_engine
             self.wildcard = wildcard
             self.filter_engine = filter_engine
+            self.logger = logger
 
 
     def run(self):
@@ -51,8 +52,11 @@ class workers:
                 print("wildcard detected for url: ", job_.url)
             else:
                 if self.filter_engine.should_keep(result):
-                    print("the result is kept for url: ", job_.url)
-                    print(f"Status Code: {result.status_code}")
+                    ### call log here
+                    self.logger.log(result, job_.url)
+                    self.logger.create_log_file("log.txt", result, job_.url)
+                    #print("the result is kept for url: ", job_.url)
+                    #rint(f"Status Code: {result.status_code}")
                 else:
                     print("the result is filtered for url: ", job_.url)
                     print(f"Status Code: {result.status_code}")
