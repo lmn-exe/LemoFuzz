@@ -27,7 +27,7 @@ class workers:
             try:
                 # Get the next job
                 job = self.queuemanager.get()
-                print("worker got job: ", job.url , "id: ", id(self))
+                # print("worker got job: ", job.url , "id: ", id(self))
 
             except queuemanager.empty:
                 # No more jobs
@@ -52,7 +52,8 @@ class workers:
             else:
                 if self.filter_engine.should_keep(result):
                     print("the result is kept for url: ", job_.url)
+                    print(f"Status Code: {result.status_code}")
                 else:
                     print("the result is filtered for url: ", job_.url)
-                # print(f"Status Code: {result.status_code}")
+                    print(f"Status Code: {result.status_code}")
                 # print(f"URL: {result.url}")

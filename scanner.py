@@ -23,6 +23,8 @@ class Scanner:
         http_engine_instance = http_engine.HttpEngine(self.options)
         wildcard_instance.initialise(http_engine_instance, self.options)
         filter_engine_instance = filter_engine.Filter_engine(self.options)
+
+        # print(f"the status code set/ none set by the user is: {self.options.status}")
         
         for word in self.wordlist:
             job_obj = job.Job()
@@ -30,7 +32,7 @@ class Scanner:
             job_obj.word = word
             queue.fill(job_obj) 
             
-            print(f"the words are: {word}")
+            # print(f"the words are: {word}")
         
         threads = []
         
@@ -45,6 +47,6 @@ class Scanner:
 
         for thread in threads:
             thread.join()
-        print(f"the queue size is: {queue.qsize()}")
+        # print(f"the queue size is: {queue.qsize()}")
         
         
